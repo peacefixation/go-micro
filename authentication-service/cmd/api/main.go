@@ -77,7 +77,6 @@ func connectToDB() *sql.DB {
 		}
 
 		if dbConnectionAttempts > 10 {
-			log.Println(err)
 			return nil
 		}
 
