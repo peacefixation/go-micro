@@ -1,3 +1,11 @@
 # local database data
 project/db-data
 
+# binaries
+authentication-service/authApp
+broker-service/brokerApp
+front-end/frontApp
+listener-service/listenerApp
+logger-service/loggerServiceApp
+mail-service/mailerApp
+
