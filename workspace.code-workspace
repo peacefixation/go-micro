@@ -1,22 +1,29 @@
 {
 	"folders": [
 		{
-			"path": "front-end"
+			"path": "authentication-service"
 		},
 		{
 			"path": "broker-service"
 		},
 		{
-			"path": "project"
+			"path": "front-end"
 		},
 		{
-			"path": "authentication-service"
+			"path": "listener-service"
 		},
 		{
 			"path": "logger-service"
 		},
 		{
 			"path": "mail-service"
+		},
+		{
+			"path": "project"
 		}
-	]
+	],
+	"settings": {
+		"makefile.extensionOutputFolder": "./.vscode",
+		"makefile.makefilePath": "/home/matt/projects/go-micro/project"
+	}
 }
