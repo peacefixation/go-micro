@@ -57,12 +57,9 @@ func main() {
 		log.Panic("Error registering RPC server", err)
 	}
 
-	go func() {
-		err := app.rpcListen()
-		if err != nil {
-			log.Println("Error listening for RPC", err)
-		}
-	}()
+	go app.rpcListen()
+
+	go app.gRPCListen()
 
 	// start web server
 	log.Println("Starting service on port", webPort)
@@ -77,13 +74,14 @@ func main() {
 	}
 }
 
-func (app *Config) rpcListen() error {
+func (app *Config) rpcListen() {
 	log.Println("Starting RPC server on port", rpcPort)
 
 	listen, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%s", rpcPort))
 	if err != nil {
-		return err
+		log.Fatalf("Failed to listen for RPC: %v", err)
 	}
+
 	defer listen.Close()
 
 	for {
