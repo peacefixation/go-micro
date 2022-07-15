@@ -1,6 +1,6 @@
 # local database data
 project/db-data
-project/cadddy_config
+project/caddy_config
 project/caddy_data
 
 # binaries
