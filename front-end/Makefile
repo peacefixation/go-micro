@@ -1,5 +1,5 @@
-DOCKER_IMAGE_NAME=peacefixation/broker-service
-DOCKER_IMAGE_VERSION=1.0.1
+DOCKER_IMAGE_NAME=peacefixation/front-end
+DOCKER_IMAGE_VERSION=1.0.8
 
 # generate protocol buffers source
 protoc:
@@ -7,7 +7,7 @@ protoc:
 
 # build docker image and tag it
 docker-tag:
-	docker build -f broker-service.dockerfile -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
+	docker build -f front-end.dockerfile -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
 
 # requires "docker login" first
 # enter username and password for hub.docker.com

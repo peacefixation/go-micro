@@ -1,10 +1,13 @@
 # local database data
 project/db-data
+project/cadddy_config
+project/caddy_data
 
 # binaries
 authentication-service/authApp
 broker-service/brokerApp
 front-end/frontApp
+front-end/frontEndApp
 listener-service/listenerApp
 logger-service/loggerServiceApp
 mail-service/mailerApp

@@ -4,6 +4,8 @@ AUTH_BINARY=authApp
 LOGGER_BINARY=loggerServiceApp
 MAIL_BINARY=mailerApp
 LISTENER_BINARY=listenerApp
+FRONT_BINARY=frontEndApp
+STACK=goMicro
 
 ## up: starts all containers in the background without forcing build
 up:
@@ -23,6 +25,12 @@ up_build: build_broker build_auth build_logger build_mail build_listener
 down:
 	@echo "Stopping docker compose..."
 	docker-compose down
+	@echo "Done!"
+
+## build_front_linux: builds the broker binary as a linux executable
+build_front_linux:
+	@echo "Building front end linux binary..."
+	cd ../front-end && env GOOS=linux CGO_ENABLED=0 go build -o ${FRONT_BINARY} ./cmd/web
 	@echo "Done!"
 
 ## build_broker: builds the broker binary as a linux executable
@@ -61,6 +69,12 @@ build_listener:
 	cd ../listener-service && env GOOS=linux CGO_ENABLED=0 go build -o ${LISTENER_BINARY} .
 	@echo "Done!"
 
+docker-tag-caddy:
+	docker build -f caddy.dockerfile -t peacefixation/gomicro-caddy:1.0.0 .
+
+docker-push-caddy:
+	docker push peacefixation/gomicro-caddy:1.0.0
+
 ## start: starts the front end
 start: build_front
 	@echo "Starting front end"
@@ -71,3 +85,37 @@ stop:
 	@echo "Stopping front end..."
 	@-pkill -SIGTERM -f "./${FRONT_END_BINARY}"
 	@echo "Stopped front end!"
+
+# initialise the docker swarm
+swarm-init:
+	docker swarm init
+
+swarm-join-token-worker:
+	docker swarm join-token worker
+
+swarm-join-token-manager:
+	docker swarm join-token manager
+
+# deploy the docker swarm
+swarm-deploy:
+	docker stack deploy -c swarm.yml ${STACK}
+
+# stop the docker swarm
+# we scale any mode: replicated containers to 0
+# don't try to scale mode: global nodes (they don't scale)
+swarm-stop:
+	docker service scale ${STACK}_authentication-service=0
+	docker service scale ${STACK}_broker-service=0
+	docker service scale ${STACK}_listener-service=0
+	docker service scale ${STACK}_logger-service=0
+	docker service scale ${STACK}_mail-service=0
+	docker service scale ${STACK}_postgres=0
+
+swarm-rm:
+	docker stack rm ${STACK}
+
+swarm-leave:
+	docker swarm leave --force
+
+# update a running service
+# docker service update --image peacefixation/logger-service:1.0.1 goMicro_logger-service
