@@ -75,6 +75,12 @@ docker-tag-caddy:
 docker-push-caddy:
 	docker push peacefixation/gomicro-caddy:1.0.0
 
+docker-tag-caddy-prod:
+	docker build -f caddy.production.dockerfile -t peacefixation/gomicro-caddy-production:1.0.1 .
+
+docker-push-caddy-prod:
+	docker push peacefixation/gomicro-caddy-production:1.0.1
+
 ## start: starts the front end
 start: build_front
 	@echo "Starting front end"
