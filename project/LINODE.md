@@ -55,10 +55,10 @@ Add records
 Initialize Docker Swarm
 
 node-1
-- docker swarm init --advertise-addr 45.79.237.153
+- docker swarm init --advertise-addr <ip address>
 
 node-2 (note this command is output by the first command)
-- docker swarm join --token XXXX 45.79.237.153:2377
+- docker swarm join --token <token> <ip address>:<port>
 
 Configure Caddy For Production
 - cp Caddyfile Caddyfile.production
