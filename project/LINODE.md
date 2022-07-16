@@ -58,7 +58,7 @@ node-1
 - docker swarm init --advertise-addr 45.79.237.153
 
 node-2 (note this command is output by the first command)
-- docker swarm join --token SWMTKN-1-5f1bnou1yxiulfchagxqss5vw1dri9uintkc7wqfhu6yn09fma-9ep5k6yzkv2uhrc3pupw18c5c 45.79.237.153:2377
+- docker swarm join --token XXXX 45.79.237.153:2377
 
 Configure Caddy For Production
 - cp Caddyfile Caddyfile.production
