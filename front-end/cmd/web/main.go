@@ -54,8 +54,6 @@ func render(w http.ResponseWriter, t string) {
 	data.BrokerHandleURL = template.URL(os.Getenv("BROKER_HANDLE_URL"))
 	data.BrokerLogGRPCURL = template.URL(os.Getenv("BROKER_LOG_GRPC_URL"))
 
-	fmt.Printf("%+v", data)
-
 	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

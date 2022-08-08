@@ -125,3 +125,39 @@ swarm-leave:
 
 # update a running service
 # docker service update --image peacefixation/logger-service:1.0.1 goMicro_logger-service
+
+minikube-start:
+	minikube start
+
+minikube-stop:
+	minikube stop
+
+minikube-dashboard:
+	minikube dashboard
+
+kubectl-deploy:
+	kubectl apply -f k8s
+
+# run add "127.0.0.1 front-end.info broker-service.info" to /etc/hosts
+# run "minikube tunnel" after the ingress is up
+kubectl-deploy-ingress:
+	kubectl apply -f ingress.yml
+
+kubectl-undeploy:
+	kubectl delete deployments broker-service mongo rabbitmq mailhog mail logger listener authentication front-end
+	kubectl delete svc broker-service mongo rabbitmq mailhog mail logger listener authentication front-end
+
+kubectl-pods:
+	kubectl get pods
+
+kubectl-deployments:
+	kubectl get deployments
+
+kubectl-services:
+	kubectl get services
+
+# kubectl logs <pod name>
+
+# simulate connecting to an external postgres instance by spinning up postgres in a separate docker container
+k8s-remote-postgres:
+	docker-compose -f postgres.yml up -d
